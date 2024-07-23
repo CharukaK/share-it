@@ -74,9 +74,24 @@ canvas {
 }
 
 .icon-link {
-    margin: 0px var(--standard-padding);
+    padding: calc(var(--standard-padding) / 2);
     font-size: 1rem;
     color: var(--fg);
+    cursor: pointer;
+    margin-right: calc(var(--standard-padding) / 4);
+    border-radius: calc(var(--standard-padding) / 4);
+}
+
+.icon-selected {
+    background: #e0dfff;
+}
+
+.moving {
+    cursor: grab;
+}
+
+.drawing {
+    cursor: crosshair;
 }
 
 /** Sections */
