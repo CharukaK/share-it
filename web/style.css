@@ -76,6 +76,7 @@ canvas {
 .icon-link {
     margin: 0px var(--standard-padding);
     font-size: 1rem;
+    color: var(--fg);
 }
 
 /** Sections */
