@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"mime"
 	"net/http"
@@ -19,6 +20,7 @@ func main() {
 
 	r.Handle("/*", fs)
 
+    fmt.Println("Started listening on :8080 => http://127.0.0.1:8080")
 	log.Fatal(http.ListenAndServe(":8080", r))
 }
 
