@@ -23,7 +23,7 @@ a,
 canvas {
     margin: 0px;
     padding: 0px;
-    color: var(--text-color);
+    /* color: var(--text-color); */
 }
 
 html,
