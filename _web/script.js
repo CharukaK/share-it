@@ -1,51 +1,8 @@
-/** @enum {string} */
-const DIAGRAM_MODE = Object.freeze({
-    MOVE: 'move',
-    DRAW: 'draw'
-});
-
-/** @enum {string} */
-const ELEMENT_TYPE = Object.freeze({
-    LINE: 'line',
-    FREEDRAW: 'freedraw',
-})
-
-class AppState {
-    constructor() {
-        this.drawMode = DIAGRAM_MODE.MOVE;
-    }
-}
-
-class Coordinate {
-    constructor(x, y) {
-        /** @property {number} */
-        this.x = x;
-        /** @property {number} */
-        this.y = y;
-    }
-}
-
-class DiagramElement {
-    /**
-     * @param {ELEMENT_TYPE} type 
-     * */
-    constructor(type) {
-        this.type = type
-    }
-}
-
-class FreedrawElement extends DiagramElement {
-    constructor() {
-        /** @property {number} */
-        this.startX = 0;
-        /** @property {number} */
-        this.startY = 0;
-        /** @property {Coordinate[]} */
-        this.points = []
-    }
-}
-
-const fel = new FreedrawElement()
+/**
+ * @typedef {Object} State
+ * @property {boolean} drawing whether the app is in drawing mode
+ * @property {boolean} moving whether the app is in moving mode
+ * */
 
 const PRIMARY_MOUSE_BTN = 1
 
