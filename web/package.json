@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build-styles": "tailwindcss -i ./style/input.css -o ./dist/style.css",
+    "build": "tsc && vite build && npm run build-styles "
   },
   "devDependencies": {
+    "tailwindcss": "^3.4.7",
     "typescript": "^5.2.2",
     "vite": "^5.3.4"
   }

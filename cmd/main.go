@@ -16,7 +16,7 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
-	fs := http.FileServer(http.Dir("web"))
+	fs := http.FileServer(http.Dir("web/dist"))
 
 	r.Handle("/*", fs)
 
