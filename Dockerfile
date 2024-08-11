@@ -14,6 +14,7 @@ RUN npm i && npm run build
 
 
 FROM alpine:latest
+USER 10014
 WORKDIR /app
 COPY --from=frontend /app/web/dist /app/web/dist
 COPY --from=backend /app/bin /app/bin
