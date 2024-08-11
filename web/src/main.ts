@@ -1,3 +1,4 @@
+import { ToolEntry } from './types/app/state'
 import './style.css';
 
 const canvas = document.querySelector('canvas');
@@ -18,12 +19,9 @@ window.addEventListener('resize', () => {
 
 
 function renderToolBox() {
-    type ToolEntry = {
-        entry: string;
-        icon: string;
-    };
 
     const tools: ToolEntry[] = [
+        { entry: 'hand', icon: 'ri-hand' },
         { entry: 'freedraw', icon: 'ri-pencil-line' },
         { entry: 'eraser', icon: 'ri-eraser-fill' }
     ];
