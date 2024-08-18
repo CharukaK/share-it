@@ -7,13 +7,13 @@ export type ToolEntry = {
 
 export enum TOOL {
     FREEDRAW = 'freedraw',
-    ERASER = 'eraser'
+    RECTANGLE = 'rectangle',
 }
 
 
 export const toolEntries: ToolEntry[] = [
     { entry: TOOL.FREEDRAW, icon: 'ri-pencil-line' },
-    { entry: TOOL.ERASER, icon: 'ri-eraser-fill' }
+    { entry: TOOL.RECTANGLE, icon: 'ri-square-line' },
 ];
 
 export type AppState = {

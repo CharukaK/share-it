@@ -11,8 +11,8 @@ if (toolbox) {
         e.preventDefault();
         if ((e.target as Element).classList.contains(TOOL.FREEDRAW)) {
             fireEvent({ type: AppEventType.TOOL_CHANGE, tool: TOOL.FREEDRAW })
-        } else if ((e.target as Element).classList.contains(TOOL.ERASER)) {
-            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: TOOL.ERASER })
+        } else if ((e.target as Element).classList.contains(TOOL.RECTANGLE)) {
+            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: TOOL.RECTANGLE })
         }
     }
     toolbox.addEventListener('click', listener);
