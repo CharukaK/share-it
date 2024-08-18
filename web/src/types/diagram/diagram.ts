@@ -13,7 +13,6 @@ export class Diagram {
 
 export class DiagramElement {
     constructor(public type: string) {
-
     }
 }
 
