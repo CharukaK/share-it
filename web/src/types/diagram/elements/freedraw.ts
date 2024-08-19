@@ -12,10 +12,10 @@ export class FreedrawElement implements DiagramElement {
     }
 
     render(ctx: CanvasRenderingContext2D) {
-        throw new Error("Method not implemented.");
+        console.log(ctx);
     }
 
     nextPoint(x: number, y: number): void {
-        throw new Error('Method not implemented.');
+        console.log(x, y);
     }
 }

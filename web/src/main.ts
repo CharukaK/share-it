@@ -1,4 +1,4 @@
-import { AppEvent, AppEventType, AppState, toolEntries, MouseButton } from './types/app/state'
+import { AppEvent, AppEventType, AppState, toolEntries } from './types/app/state'
 import './style.css';
 import { Coordinate, Diagram, DiagramElementType } from './types/diagram/diagram';
 import * as DiagramElements from './types/diagram/elements'
