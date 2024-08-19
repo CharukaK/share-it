@@ -1,8 +1,10 @@
-import { AppEvent, AppEventType, AppState, toolEntries, DiagramElementType, MouseButton } from './types/app/state'
+import { AppEvent, AppEventType, AppState, toolEntries, MouseButton } from './types/app/state'
 import './style.css';
-import { Diagram } from './types/diagram/diagram';
+import { Coordinate, Diagram, DiagramElementType } from './types/diagram/diagram';
+import * as DiagramElements from './types/diagram/elements'
 
 const canvas = document.querySelector<HTMLCanvasElement>('canvas');
+const ctx = canvas?.getContext('2d')
 const toolbox = document.querySelector<HTMLDivElement>('.tool-box')
 
 // register toolbox events
@@ -42,7 +44,23 @@ const reducer = (prev: AppState, evt: AppEvent): AppState => {
             prev.selectedTool = evt.tool;
             break;
         case AppEventType.START_DRAW:
-
+            if (prev.selectedTool) {
+                let Element = DiagramElements[prev.selectedTool]
+                prev.draft = new Element();
+                prev.draft.startX = evt.point.x;
+                prev.draft.startY = evt.point.y;
+            }
+            break;
+        case AppEventType.MOVE_NEXT_POINT:
+            if (prev.draft) {
+                prev.draft.nextPoint(evt.point.x, evt.point.y)
+            }
+            break;
+        case AppEventType.STOP_DRAW:
+            if (prev.draft) {
+                prev.diagram.elements.push(prev.draft)
+                prev.draft = undefined;
+            }
             break;
     }
 
@@ -64,16 +82,39 @@ window.addEventListener('resize', () => {
     if (canvas) {
         canvas.height = window.innerHeight;
         canvas.width = window.innerWidth;
+        render();
     }
 });
 
 window.addEventListener('mousemove', (e: MouseEvent) => {
-    console.log(e.buttons, MouseButton.PRIMARY)
     if (e.buttons === MouseButton.PRIMARY) {
+    }
 
+    switch (e.buttons) {
+        case 1:
+            if (!appState.draft) {
+                const point = new Coordinate();
+                point.x = e.x
+                point.y = e.y
+                fireEvent({ type: AppEventType.START_DRAW, point });
+                return
+            }
+
+            const point = new Coordinate();
+            point.x = e.offsetX;
+            point.y = e.offsetY;
+            fireEvent({ type: AppEventType.MOVE_NEXT_POINT, point });
+            break
+        default:
+        // not required
     }
 })
 
+window.addEventListener('mouseup', () => {
+    if (appState.draft) {
+        fireEvent({ type: AppEventType.STOP_DRAW })
+    }
+})
 
 function renderToolBox() {
     let innerHtml = '';
@@ -99,6 +140,18 @@ function renderToolBox() {
 }
 
 function render() {
+    if (ctx) {
+        ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height)
+        
+        appState.diagram.elements.forEach(el => {
+            el.render(ctx)
+        });
+
+        if (appState.draft) {
+            appState.draft.render(ctx)
+        }
+
+    }
     renderToolBox();
 }
 

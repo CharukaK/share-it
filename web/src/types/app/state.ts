@@ -1,4 +1,4 @@
-import { Coordinate, Diagram, DiagramElementType } from "../diagram/diagram";
+import { Coordinate, Diagram, DiagramElement, DiagramElementType } from "../diagram/diagram";
 
 export enum MouseButton {
     PRIMARY = 1,
@@ -19,15 +19,18 @@ export type AppState = {
     diagram: Diagram;
     selectedTool: DiagramElementType | undefined;
     startPoint: Coordinate | undefined;
-    draft: DiagramElementType | undefined;
+    draft: DiagramElement | undefined;
 };
 
 export enum AppEventType {
     TOOL_CHANGE,
     START_DRAW,
+    MOVE_NEXT_POINT,
     STOP_DRAW,
 }
 
 export type AppEvent = { type: AppEventType.TOOL_CHANGE, tool: DiagramElementType | undefined }
-    | { type: AppEventType.START_DRAW }
+    | { type: AppEventType.START_DRAW, point: Coordinate }
+    | { type: AppEventType.MOVE_NEXT_POINT, point: Coordinate }
+    | { type: AppEventType.STOP_DRAW }
 

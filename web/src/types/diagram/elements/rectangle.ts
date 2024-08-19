@@ -9,10 +9,16 @@ export class RectangleElement implements DiagramElement {
 
 
     render(ctx: CanvasRenderingContext2D): void {
-        throw new Error("Method not implemented.");
+        ctx.beginPath();
+        ctx.strokeStyle = 'green';
+        ctx.lineWidth = 5;
+        ctx.lineCap = 'round';
+        ctx.rect(this.startX, this.startY, this.endX, this.endY)
+        ctx.stroke();
     }
 
     nextPoint(x: number, y: number): void {
-        throw new Error('Method not implemented.');
+        this.endX = x;
+        this.endY = y;
     }
 }
