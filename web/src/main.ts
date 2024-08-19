@@ -1,4 +1,4 @@
-import { AppEvent, AppEventType, AppState, toolEntries, DiagramElement, MouseButton } from './types/app/state'
+import { AppEvent, AppEventType, AppState, toolEntries, DiagramElementType, MouseButton } from './types/app/state'
 import './style.css';
 import { Diagram } from './types/diagram/diagram';
 
@@ -9,10 +9,10 @@ const toolbox = document.querySelector<HTMLDivElement>('.tool-box')
 if (toolbox) {
     const listener = (e: MouseEvent) => {
         e.preventDefault();
-        if ((e.target as Element).classList.contains(DiagramElement.FREEDRAW)) {
-            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: DiagramElement.FREEDRAW })
-        } else if ((e.target as Element).classList.contains(DiagramElement.RECTANGLE)) {
-            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: DiagramElement.RECTANGLE })
+        if ((e.target as Element).classList.contains(DiagramElementType.FREEDRAW)) {
+            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: DiagramElementType.FREEDRAW })
+        } else if ((e.target as Element).classList.contains(DiagramElementType.RECTANGLE)) {
+            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: DiagramElementType.RECTANGLE })
         }
     }
     toolbox.addEventListener('click', listener);
@@ -42,6 +42,7 @@ const reducer = (prev: AppState, evt: AppEvent): AppState => {
             prev.selectedTool = evt.tool;
             break;
         case AppEventType.START_DRAW:
+
             break;
     }
 
