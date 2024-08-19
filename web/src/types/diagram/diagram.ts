@@ -15,6 +15,8 @@ export class Diagram {
 export interface DiagramElement {
     startX: number;
     startY: number;
+    endX: number;
+    endY: number;
     type: string;
     render(ctx: CanvasRenderingContext2D): void;
     nextPoint(x: number, y: number): void;

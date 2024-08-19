@@ -7,7 +7,6 @@ export class RectangleElement implements DiagramElement {
     endY: number = 0;
     type: string = DiagramElementType.RECTANGLE;
 
-
     render(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
         ctx.strokeStyle = 'green';

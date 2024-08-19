@@ -55,6 +55,8 @@ const reducer = (prev: AppState, evt: AppEvent): AppState => {
                 prev.draft = new Element();
                 prev.draft.startX = evt.point.x;
                 prev.draft.startY = evt.point.y;
+                prev.draft.endX = evt.point.x;
+                prev.draft.endY = evt.point.y;
             }
             break;
         case AppEventType.MOVE_NEXT_POINT:
