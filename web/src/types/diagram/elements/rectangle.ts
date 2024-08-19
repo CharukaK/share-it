@@ -13,7 +13,7 @@ export class RectangleElement implements DiagramElement {
         ctx.strokeStyle = 'green';
         ctx.lineWidth = 5;
         ctx.lineCap = 'round';
-        ctx.rect(this.startX, this.startY, this.endX, this.endY)
+        ctx.rect(this.startX, this.startY, this.endX - this.startX, this.endY - this.startY)
         ctx.stroke();
     }
 

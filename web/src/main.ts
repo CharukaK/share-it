@@ -26,6 +26,12 @@ document.addEventListener('keyup', (e: KeyboardEvent) => {
         case "Escape":
             fireEvent({ type: AppEventType.TOOL_CHANGE, tool: undefined })
             break;
+        case "1":
+            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: toolEntries[0].entry as DiagramElementType })
+            break;
+        case "2":
+            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: toolEntries[1].entry as DiagramElementType })
+            break;
     }
 });
 
@@ -87,15 +93,12 @@ window.addEventListener('resize', () => {
 });
 
 window.addEventListener('mousemove', (e: MouseEvent) => {
-    if (e.buttons === MouseButton.PRIMARY) {
-    }
-
     switch (e.buttons) {
         case 1:
             if (!appState.draft) {
                 const point = new Coordinate();
-                point.x = e.x
-                point.y = e.y
+                point.x = e.offsetX
+                point.y = e.offsetY
                 fireEvent({ type: AppEventType.START_DRAW, point });
                 return
             }
@@ -141,8 +144,8 @@ function renderToolBox() {
 
 function render() {
     if (ctx) {
-        ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height)
-        
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+
         appState.diagram.elements.forEach(el => {
             el.render(ctx)
         });
