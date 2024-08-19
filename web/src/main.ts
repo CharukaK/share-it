@@ -1,4 +1,4 @@
-import { AppEvent, AppEventType, AppState, toolEntries, TOOL } from './types/app/state'
+import { AppEvent, AppEventType, AppState, toolEntries, DiagramElement, MouseButton } from './types/app/state'
 import './style.css';
 import { Diagram } from './types/diagram/diagram';
 
@@ -9,10 +9,10 @@ const toolbox = document.querySelector<HTMLDivElement>('.tool-box')
 if (toolbox) {
     const listener = (e: MouseEvent) => {
         e.preventDefault();
-        if ((e.target as Element).classList.contains(TOOL.FREEDRAW)) {
-            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: TOOL.FREEDRAW })
-        } else if ((e.target as Element).classList.contains(TOOL.RECTANGLE)) {
-            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: TOOL.RECTANGLE })
+        if ((e.target as Element).classList.contains(DiagramElement.FREEDRAW)) {
+            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: DiagramElement.FREEDRAW })
+        } else if ((e.target as Element).classList.contains(DiagramElement.RECTANGLE)) {
+            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: DiagramElement.RECTANGLE })
         }
     }
     toolbox.addEventListener('click', listener);
@@ -22,7 +22,7 @@ if (toolbox) {
 document.addEventListener('keyup', (e: KeyboardEvent) => {
     switch (e.key) {
         case "Escape":
-            fireEvent({type: AppEventType.TOOL_CHANGE, tool: undefined})
+            fireEvent({ type: AppEventType.TOOL_CHANGE, tool: undefined })
             break;
     }
 });
@@ -32,12 +32,16 @@ document.addEventListener('keyup', (e: KeyboardEvent) => {
 let appState: AppState = {
     diagram: new Diagram(),
     selectedTool: undefined,
+    startPoint: undefined,
+    draft: undefined
 }
 
 const reducer = (prev: AppState, evt: AppEvent): AppState => {
     switch (evt.type) {
         case AppEventType.TOOL_CHANGE:
             prev.selectedTool = evt.tool;
+            break;
+        case AppEventType.START_DRAW:
             break;
     }
 
@@ -61,6 +65,13 @@ window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
     }
 });
+
+window.addEventListener('mousemove', (e: MouseEvent) => {
+    console.log(e.buttons, MouseButton.PRIMARY)
+    if (e.buttons === MouseButton.PRIMARY) {
+
+    }
+})
 
 
 function renderToolBox() {
