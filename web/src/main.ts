@@ -6,6 +6,7 @@ import * as DiagramElements from './types/diagram/elements'
 const canvas = document.querySelector<HTMLCanvasElement>('canvas');
 const ctx = canvas?.getContext('2d')
 const toolbox = document.querySelector<HTMLDivElement>('.tool-box')
+const source = new EventSource('/sse')
 
 // register toolbox events
 if (toolbox) {
@@ -72,7 +73,7 @@ const reducer = (prev: AppState, evt: AppEvent): AppState => {
             break;
     }
 
-    console.log(prev, evt)
+    // console.log(prev, evt)
     return prev
 }
 
@@ -160,5 +161,23 @@ function render() {
     renderToolBox();
 }
 
-render();
+function connectSSE() {
+    source.onmessage = (evt) => {
+        console.log(evt.data)
+    }
 
+    source.onopen = (evt) => {
+        console.log("opened >>>", evt)
+    }
+
+    source.onerror = (evt) => {
+        console.log("error >>>", evt)
+    }
+}
+
+function init() {
+    render();
+    connectSSE();
+}
+
+init();

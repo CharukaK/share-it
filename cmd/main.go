@@ -15,7 +15,7 @@ var clients map[chan string]struct{}
 func main() {
 	loadMimeTypes()
 
-    clients = make(map[chan string]struct{})
+	clients = make(map[chan string]struct{})
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
@@ -29,9 +29,9 @@ func main() {
 		w.Header().Set("Connection", "keep-alive")
 
 		ch := make(chan string)
-		broadcast(fmt.Sprintf("client connected, connections: %d", len(clients)))
+		broadcast(fmt.Sprintf("client connected, connections: %d", len(clients)+1))
 		clients[ch] = struct{}{}
-
+		w.(http.Flusher).Flush()
 		defer func() {
 			delete(clients, ch)
 			broadcast(fmt.Sprintf("client disconnected, connections: %d", len(clients)))
@@ -42,6 +42,8 @@ func main() {
 			case v := <-ch:
 				w.Write([]byte(v))
 				w.(http.Flusher).Flush()
+			case <-r.Context().Done():
+				return
 			}
 		}
 	})
