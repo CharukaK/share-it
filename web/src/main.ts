@@ -178,15 +178,6 @@ function connectSSE() {
 function init() {
     render();
     connectSSE();
-    fetch("/echo", {
-        method: "POST",
-        body: JSON.stringify({
-            msg: "hello world"
-        }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    })
 }
 
 init();
