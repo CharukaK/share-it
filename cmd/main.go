@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"mime"
 	"net/http"
@@ -46,6 +47,15 @@ func main() {
 				return
 			}
 		}
+	})
+
+	r.Post("/echo", func(w http.ResponseWriter, r *http.Request) {
+		content, err := io.ReadAll(r.Body)
+        if err != nil {
+            http.Error(w, http.StatusText(400), 400)
+        }
+
+        w.Write(content)
 	})
 
 	fmt.Println("Started listening on :8080 => http://127.0.0.1:8080")
